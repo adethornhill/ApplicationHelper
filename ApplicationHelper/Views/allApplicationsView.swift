@@ -48,8 +48,6 @@ struct AllApplicationsView: View {
             }
             .offset(x: -10)
             .listStyle(PlainListStyle())
-            
-            
         }
         .navigationTitle("Applications")
         

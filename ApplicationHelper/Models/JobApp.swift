@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct JobApplication : Identifiable{
+struct JobApp : Identifiable{
     
     let id: String
     let aCompany : String

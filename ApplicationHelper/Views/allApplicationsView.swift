@@ -11,6 +11,9 @@ struct AllApplicationsView: View {
     
     @EnvironmentObject var jobAppViewModel : JobAppViewModel
     
+    @State var displaySingleApp : Bool = false
+    @State var applicationToDisplay : JobApplication?
+    
     var body: some View {
         VStack{
             HStack(spacing: 10){
@@ -43,14 +46,13 @@ struct AllApplicationsView: View {
             
             List(){
                 ForEach(jobAppViewModel.applications){ application in
-                    ApplicationRowView(jobApplication: application)
-                }
+                    ApplicationRowView(jobApplication: application)                }
             }
             .offset(x: -10)
             .listStyle(PlainListStyle())
         }
         .navigationTitle("Applications")
-        
+                
 
     }
 }

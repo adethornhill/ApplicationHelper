@@ -17,11 +17,19 @@ struct SingleApplicationView: View {
     var body: some View {
         VStack{
             
-            Text(jobApplication.company ?? "name").bold()
-                .frame(maxWidth: .infinity)
+            HStack{
+                Text(jobApplication.company ?? "name").bold()
                 .padding()
-                .background(viewModel.singleViewTopColor(jobApplication: jobApplication))
                 .foregroundColor(.white)
+                
+                Image(systemName: jobApplication.isFavourite ? "star.fill" : "star" )
+                    .foregroundColor(.yellow)
+                    .onTapGesture {
+                        viewModel.toggleFavourite(jobApp: jobApplication)
+                    }
+            }
+            .frame(maxWidth: .infinity)
+            .background(viewModel.singleViewTopColor(jobApplication: jobApplication))
             
             Spacer()
                 .frame(height: 35)

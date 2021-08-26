@@ -10,7 +10,7 @@ import CoreData
 class JobAppViewModel : ObservableObject {
     
     @Published var applications: [JobApplication] = [] //all created job applications
-    
+    let filters : [FilterCommand] = [NoneFilter(),FavouriteFilter()] // filters used to filter applications
     let container: NSPersistentContainer
     
     init(){
@@ -45,6 +45,7 @@ class JobAppViewModel : ObservableObject {
         newApp.title = jobTitle
         newApp.dateApplied = dateApplied
         newApp.status = "Applied"
+        newApp.isFavourite = false
         saveData()
     }
     
@@ -55,20 +56,43 @@ class JobAppViewModel : ObservableObject {
         }
     }
     
+    //function to favourite or unfavourite an application
+    func toggleFavourite(jobApp:JobApplication){
+        jobApp.isFavourite = !jobApp.isFavourite
+        saveData()
+    }
+    
     func createAppForTests(companyName:String, jobTitle:String , dateApplied:Date)->JobApplication{
         let newApp = JobApplication(context: container.viewContext)
         newApp.company = companyName
         newApp.title = jobTitle
         newApp.dateApplied = dateApplied
         newApp.status = "Applied"
+        newApp.isFavourite = false
         return newApp
     }
+    
     func saveData(){
         do{
             try container.viewContext.save()
             fetchApplications() //any time we save we fetch so that savedApplications array is updated
         } catch let error {
             print("Error when saving: \(error)")
+        }
+    }
+    
+    //creates and uses predicate from filter command inputted
+    func useFilter(inFilter: FilterCommand){
+        let request = NSFetchRequest<JobApplication>(entityName:"JobApplication")
+        
+        let filter = inFilter.createPredicate()
+        request.predicate = filter
+        
+        do {
+            self.applications = try container.viewContext.fetch(request)
+            
+        } catch let error{
+            print("Error when fetching : \(error)")
         }
     }
     

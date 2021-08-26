@@ -11,11 +11,9 @@ struct AllApplicationsView: View {
     
     @EnvironmentObject var jobAppViewModel : JobAppViewModel
     
-    @State var displaySingleApp : Bool = false
-    @State var applicationToDisplay : JobApplication?
-    
     var body: some View {
         VStack{
+            FilterDropDownView(title: "Filter", items: jobAppViewModel.filters)
             HStack(spacing: 10){
                 Text("Company")
                     .bold()

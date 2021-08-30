@@ -11,7 +11,6 @@ struct UpdateApplicationView: View {
     @EnvironmentObject var viewModel:JobAppViewModel
     @State private var companyName : String = ""
     @State private var alertTitle:String=""
-   // @State var showAlert:Bool = false
     var body: some View {
         VStack{
             //create form for adding a job application
@@ -22,7 +21,7 @@ struct UpdateApplicationView: View {
                 
                 
             Form{
-                Section(footer: Text("Next button only appears if input matches a company name in database")){
+                Section(footer: Text("Continue button only works if input matches a company name in database")){
                     TextField("Company Name", text: $companyName)
                     
                 }
@@ -30,13 +29,13 @@ struct UpdateApplicationView: View {
             NavigationLink(
                 destination: UpdateStatusView(appMatches: viewModel.searchAppByName(compName: companyName)),
                 label: {
-                            Text("Next")
+                            Text("Continue")
                                 .bold()
                                 .frame(width: 200,
                                        height: 25,
                                        alignment: .center)
                                 .padding()
-                                .background(!doesAppExist() ? Color.white : Color.blue)
+                                .background(!doesAppExist() ? Color(#colorLiteral(red: 0.6805589199, green: 0.6765155196, blue: 0.683668375, alpha: 1)): Color.blue)
                                 .foregroundColor(.white)
                                 .cornerRadius(10)
                 }).disabled(!doesAppExist())

@@ -10,7 +10,10 @@ import CoreData
 class JobAppViewModel : ObservableObject {
     
     @Published var applications: [JobApplication] = [] //all created job applications
-    let filters : [Command] = [NoneCommand(),FavouriteFilter()] // filters used to filter applications
+    let filters : [Command] = [NoneCommand(),FavouriteFilter(),AppliedFilter(),InterviewFilter(),AcceptedFilter(),RejectedFilter()] // filters used to filter applications
+    
+    let descriptors : [Command] = [ AscendDate(), DescendDate() ]
+    
     let container: NSPersistentContainer
     
     init(){
@@ -88,6 +91,34 @@ class JobAppViewModel : ObservableObject {
         }
     }
     
+    func getStatus(jobApp: JobApplication)->String?{
+        return jobApp.status
+    }
+    
+    func canUpdateJob(jobApp: JobApplication)->Bool{
+        //return false if status is rejected or accepted else true
+        return jobApp.status != "Rejected" && jobApp.status != "Accepted"
+    }
+    
+    func canUpdateToInterview(jobApp: JobApplication, newNum:Int)->Bool{
+        if jobApp.status == "Applied" {return true}
+        
+        if let status = jobApp.status{
+            if status.contains("Interview"){
+                
+                //get interview number of current status
+                if let num = Int(status.split(separator: " ")[1])
+                {
+                    if num <= newNum{
+                        return true
+                    }
+                }
+        
+            }
+            
+        }
+        return false
+    }
     //creates and uses predicate from filter command inputted
     func useCommand(inCommand: Command){
         let request = NSFetchRequest<JobApplication>(entityName:"JobApplication")
@@ -180,7 +211,7 @@ class JobAppViewModel : ObservableObject {
         newApp.company = companyName
         newApp.title = jobTitle
         newApp.dateApplied = dateApplied
-        newApp.status = "Rejected"
+        newApp.status = "Applied"
         newApp.isFavourite = false
         return newApp
     }

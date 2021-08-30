@@ -8,18 +8,21 @@
 import SwiftUI
 
 struct UpdateStatusView: View {
+    @EnvironmentObject var viewModel:JobAppViewModel
     
     let appMatches : [JobApplication] //applications that match company name from UpdateApplicationView
     
     var body: some View {
         VStack{
             Text("Which application to update?").bold()
+            Text("(Cannot update accepted or rejected applications)")
+                .foregroundColor(.gray)
             List(){
                 ForEach(appMatches){ application in
                     NavigationLink(
                         destination: UpdateOptionsView(jobApp: application),
                         label: {ApplicationRowView(jobApplication: application)}
-                    )
+                    ).disabled(!viewModel.canUpdateJob(jobApp: application))
                 }
                     
             }.listStyle(PlainListStyle())
@@ -101,21 +104,29 @@ struct UpdateOptionsView: View {
                                height: 25,
                                alignment: .center)
                         .padding()
-                        .background(Color.blue)
+                        .background(!isUpdateValid() ? Color(#colorLiteral(red: 0.6805589199, green: 0.6765155196, blue: 0.683668375, alpha: 1)): Color.blue)
                         .foregroundColor(.white)
                         .cornerRadius(10)
                 })
             }
+            .disabled(!isUpdateValid())
             
         }
     }
     
-    //IMPLEMENT LATER
-    //Make func to give alert cannot update an accepted or rejected application
-    //or cannot update from interview 3 to 1
-//    func isUpdateValid(){
-//        if
-//    }
+    func newInterviewNum(num:String)->Int{
+        guard let number = Int(num) else {
+            return 1
+        }
+        return number
+    }
+    
+    func isUpdateValid()->Bool{
+        if  selectedUpdate=="Interview" && !viewModel.canUpdateToInterview(jobApp: jobApp, newNum: newInterviewNum(num: interviewNum )) {
+            return false
+        }
+        return true
+    }
 }
 
 struct updateStatusView_Previews: PreviewProvider {

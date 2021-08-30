@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-struct FilterDropDownView: View {
+struct DropDownView: View {
     let title : String
-    let items : [FilterCommand]
+    let items : [Command]
     @State private var showItems = false //show items in menu
-    @State private var selectedItem : FilterCommand = NoneFilter()
+    @State private var selectedItem : Command = NoneCommand()
     @EnvironmentObject var viewModel : JobAppViewModel
 
     var body: some View {
@@ -30,9 +30,9 @@ struct FilterDropDownView: View {
                                 .padding(.bottom, 3)
                                 .onTapGesture {
                                     selectedItem = items[index]
-                                    
+
                                     //use filter on whatever item is chosen
-                                    viewModel.useFilter(inFilter: items[index])
+                                    viewModel.useCommand(inCommand: items[index])
                                     withAnimation{
                                         showItems.toggle()
                                 }
@@ -56,7 +56,7 @@ struct FilterDropDownView: View {
 struct DropDownMenuView_Previews: PreviewProvider {
     static var vm = JobAppViewModel()
     static var previews: some View {
-        FilterDropDownView(title: "Filter" ,items:vm.filters)
+        DropDownView(title: "Filter" ,items:vm.filters)
             .environmentObject(JobAppViewModel())
             
     }

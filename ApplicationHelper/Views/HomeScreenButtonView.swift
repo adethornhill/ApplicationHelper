@@ -17,8 +17,10 @@ struct HomeScreenButtonView: View {
                 .font(.body)
                 .bold()
                 .padding()
+                .frame(maxWidth: 185)
                 .border(borderColor, width: 3)
                 .foregroundColor(.black)
+                
         Spacer()
         }
 
@@ -27,6 +29,6 @@ struct HomeScreenButtonView: View {
 
 struct HomeScreenButtonView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeScreenButtonView(str: "Add Job App",borderColor: Color.purple)
+        HomeScreenButtonView(str: "Update Application",borderColor: Color.purple)
     }
 }

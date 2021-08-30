@@ -7,11 +7,17 @@
 
 import Foundation
 
-protocol FilterCommand{
+protocol Command {
+    
+    //functions used to get sort descriptors or filters for JobApplications
     var title : String {get}
     
-    //function used to either sort or filter JobApplications
-    func createPredicate() -> NSPredicate?
+    func getPredicate () -> NSPredicate?
+    func getSortDescriptors() -> [NSSortDescriptor]
+    
+    
+}
+protocol FilterCommand : Command{
     
 }
 
@@ -21,20 +27,27 @@ class FavouriteFilter : FilterCommand {
     var title: String = "Favourites"
     
     //creates predicate on which to filter applications
-    func createPredicate() -> NSPredicate? {
+    func getPredicate() -> NSPredicate? {
         return NSPredicate(format: "isFavourite == %@", kCFBooleanTrue as! CVarArg)
     }
     
+    func getSortDescriptors() -> [NSSortDescriptor] {
+        return []
+    }
     
 }
 
-class NoneFilter : FilterCommand {
+class NoneCommand : Command {
     
     var title: String = "None"
     
     //creates predicate on which to filter applications
-    func createPredicate() -> NSPredicate? {
+    func getPredicate() -> NSPredicate? {
         return nil
+    }
+    
+    func getSortDescriptors() -> [NSSortDescriptor] {
+        return []
     }
     
     

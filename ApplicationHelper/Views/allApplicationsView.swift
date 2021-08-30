@@ -13,7 +13,7 @@ struct AllApplicationsView: View {
     
     var body: some View {
         VStack{
-            FilterDropDownView(title: "Filter", items: jobAppViewModel.filters)
+            DropDownView(title: "Filter", items: jobAppViewModel.filters)
             HStack(spacing: 10){
                 Text("Company")
                     .bold()

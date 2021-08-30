@@ -10,7 +10,7 @@ import CoreData
 class JobAppViewModel : ObservableObject {
     
     @Published var applications: [JobApplication] = [] //all created job applications
-    let filters : [FilterCommand] = [NoneFilter(),FavouriteFilter()] // filters used to filter applications
+    let filters : [Command] = [NoneCommand(),FavouriteFilter()] // filters used to filter applications
     let container: NSPersistentContainer
     
     init(){
@@ -89,12 +89,14 @@ class JobAppViewModel : ObservableObject {
     }
     
     //creates and uses predicate from filter command inputted
-    func useFilter(inFilter: FilterCommand){
+    func useCommand(inCommand: Command){
         let request = NSFetchRequest<JobApplication>(entityName:"JobApplication")
         
-        let filter = inFilter.createPredicate()
+        let filter = inCommand.getPredicate()
         request.predicate = filter
         
+        let descriptors = inCommand.getSortDescriptors()
+        request.sortDescriptors = descriptors
         do {
             self.applications = try container.viewContext.fetch(request)
             
@@ -178,7 +180,7 @@ class JobAppViewModel : ObservableObject {
         newApp.company = companyName
         newApp.title = jobTitle
         newApp.dateApplied = dateApplied
-        newApp.status = "Interview 3"
+        newApp.status = "Rejected"
         newApp.isFavourite = false
         return newApp
     }

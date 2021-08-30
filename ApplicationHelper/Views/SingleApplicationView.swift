@@ -70,13 +70,9 @@ struct SingleApplicationView: View {
                 .frame(maxHeight: 130)
             
             Button(action: {showAlert=true} , label: {
-                Text("Delete")
-                    .bold()
-                    .padding(6)
-                    .frame(maxWidth: 150)
-                    .background(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
+                Image(systemName: "trash")
                     .foregroundColor(.red)
-                    .cornerRadius(10)
+                    .frame(width:40, height: 40)
             })
             
             Spacer()

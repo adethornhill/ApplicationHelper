@@ -15,9 +15,6 @@ struct ApplicationRowView: View {
     
     
     var body: some View {
-        NavigationLink(
-            destination: SingleApplicationView(jobApplication: jobApplication),
-            label: {
                 LazyHStack(spacing: 18){
                     Text(jobApplication.company ?? "Default Company")
                         .frame(width: 75, height:20.3, alignment: .leading)
@@ -39,8 +36,6 @@ struct ApplicationRowView: View {
                 .background(viewModel.getRowColor(jobApplication:jobApplication))
                 .cornerRadius(6)
                 .foregroundColor(.black)
-                
-            })
     }
     
     

@@ -10,8 +10,8 @@ import SwiftUI
 struct FilterDropDownView: View {
     let title : String
     let items : [FilterCommand]
-    @State var showItems = false //show items in menu
-    @State var selectedItem : FilterCommand = NoneFilter()
+    @State private var showItems = false //show items in menu
+    @State private var selectedItem : FilterCommand = NoneFilter()
     @EnvironmentObject var viewModel : JobAppViewModel
 
     var body: some View {

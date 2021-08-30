@@ -14,8 +14,8 @@ struct AddApplicationView: View {
     @State private var companyName = ""
     @State private var jobTitle = ""
     @State private var dateApplied = Date()
-    @State var alertTitle:String=""
-    @State var showAlert:Bool = false
+    @State private var alertTitle:String=""
+    @State private var showAlert:Bool = false
     
     var body: some View {
             VStack{

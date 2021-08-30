@@ -44,7 +44,12 @@ struct AllApplicationsView: View {
             
             List(){
                 ForEach(jobAppViewModel.applications){ application in
-                    ApplicationRowView(jobApplication: application)                }
+                    NavigationLink(
+                        destination: SingleApplicationView(jobApplication: application) ,
+                        label : {
+                            ApplicationRowView(jobApplication: application)
+                            } )
+                                 }
             }
             .offset(x: -10)
             .listStyle(PlainListStyle())

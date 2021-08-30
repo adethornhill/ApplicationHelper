@@ -62,15 +62,22 @@ class JobAppViewModel : ObservableObject {
         saveData()
     }
     
-    func createAppForTests(companyName:String, jobTitle:String , dateApplied:Date)->JobApplication{
-        let newApp = JobApplication(context: container.viewContext)
-        newApp.company = companyName
-        newApp.title = jobTitle
-        newApp.dateApplied = dateApplied
-        newApp.status = "Applied"
-        newApp.isFavourite = false
-        return newApp
+    func updateStatus(jobApp:JobApplication, status:String , importantDate: Date = Date(timeIntervalSince1970: 0) ){
+        jobApp.status = status
+        if status.contains("Interview"){
+            jobApp.importantDate = importantDate
+            
+            if importantDate == Date(timeIntervalSince1970: 0) {
+                jobApp.importantDate = Date()
+            }
+        }
+        else{
+            jobApp.importantDate = nil
+        }
+        saveData()
     }
+    
+    
     
     func saveData(){
         do{
@@ -96,6 +103,25 @@ class JobAppViewModel : ObservableObject {
         }
     }
     
+    //returns all applications to a specific company
+    func searchAppByName(compName: String)->[JobApplication]{
+        
+        var companyApps : [JobApplication] = []
+        let request = NSFetchRequest<JobApplication>(entityName:"JobApplication")
+        
+        let filter = NSPredicate(format: "company == %@", compName)
+        request.predicate = filter
+        
+        do {
+            
+            companyApps = try container.viewContext.fetch(request)
+            
+        } catch let error{
+            print("Error when fetching : \(error)")
+        }
+        
+        return companyApps
+    }
     //converts date to string
     func getDateString(date: Date)->String{
         let formatter1 = DateFormatter()
@@ -119,6 +145,11 @@ class JobAppViewModel : ObservableObject {
         else if jobApplication.status == "Accepted"{
             return Color(#colorLiteral(red: 0, green: 0.7583040595, blue: 0, alpha: 0.1535992266))
         }
+        else if let status = jobApplication.status{
+            if status.contains("Interview"){
+                return Color(#colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 0.5122700874))
+            }
+        }
         return Color(#colorLiteral(red: 0, green: 0.343914181, blue: 0.928293407, alpha: 0.2785940365))
     }
     
@@ -130,9 +161,26 @@ class JobAppViewModel : ObservableObject {
         else if jobApplication.status == "Accepted"{
             return Color(#colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1))
         }
+        
+        else if let status = jobApplication.status{
+            if status.contains("Interview"){
+                return Color(#colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1))
+            }
+            
+        }
         return Color(#colorLiteral(red: 0.3647058904, green: 0.06666667014, blue: 0.9686274529, alpha: 1))
 
         
+    }
+    
+    func createAppForTests(companyName:String, jobTitle:String , dateApplied:Date)->JobApplication{
+        let newApp = JobApplication(context: container.viewContext)
+        newApp.company = companyName
+        newApp.title = jobTitle
+        newApp.dateApplied = dateApplied
+        newApp.status = "Interview 3"
+        newApp.isFavourite = false
+        return newApp
     }
     
 }

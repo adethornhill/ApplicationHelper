@@ -13,25 +13,20 @@ struct HomeView: View {
         
                 VStack{
                 //3 nav links for different screens
-                    Spacer()
+                    
                     NavigationLink(destination: AddApplicationView(),
                                    label: {
                                     HomeScreenButtonView(str:"Add Application", borderColor: Color.purple)
                                    })
                      
-                    NavigationLink(destination: EmptyView(),
+                    NavigationLink(destination: UpdateApplicationView(),
                                    label: {
                                     HomeScreenButtonView(str:"Update Application", borderColor: Color.blue)
                                    })
-                
-                    NavigationLink(destination: EmptyView(),
-                                   label: {
-                                    HomeScreenButtonView(str:"Delete Application", borderColor: Color.green)
-                                   })
+                    Spacer()
                 }
                 .navigationBarItems(trailing: NavigationLink("Applications",destination: AllApplicationsView()))
-            
-        
+                .navigationBarBackButtonHidden(true)
     }
 }
 

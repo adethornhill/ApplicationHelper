@@ -12,7 +12,7 @@ struct SingleApplicationView: View {
     @Environment(\.presentationMode) var presentationMode
     let jobApplication : JobApplication
     @EnvironmentObject var viewModel : JobAppViewModel
-    @State var showAlert : Bool = false
+    @State private var showAlert : Bool = false
     
     var body: some View {
         VStack{

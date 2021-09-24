@@ -43,7 +43,7 @@ struct AddApplicationView: View {
                             .cornerRadius(10)
                        })
             }
-            .navigationTitle("Add Job Application")
+            .navigationTitle(("Add Job Application"))
             .alert(isPresented: $showAlert, content:getAlert)
     }
     

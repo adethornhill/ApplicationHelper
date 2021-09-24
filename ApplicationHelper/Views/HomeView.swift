@@ -10,10 +10,14 @@ import SwiftUI
 struct HomeView: View {
     
     var body: some View {
-        
-                VStack{
+        ZStack{
+           Color(#colorLiteral(red: 0.9894165397, green: 0.9216066003, blue: 0.8180939555, alpha: 1))
+                .edgesIgnoringSafeArea(.all)
+         
+        VStack(spacing : 100){
                 //3 nav links for different screens
-                    
+            Spacer()
+                .frame(height:20)
                     NavigationLink(destination: AddApplicationView(),
                                    label: {
                                     HomeScreenButtonView(str:"Add Application", borderColor: Color.purple)
@@ -24,10 +28,23 @@ struct HomeView: View {
                                     HomeScreenButtonView(str:"Update Application", borderColor: Color.blue)
                                    })
                     Spacer()
+                    //TEST notifications are being scheduled correctly DELETE!!
+//                    Button("Print pending notifications"){
+//                        print("The following are the pending notification requests: ")
+//                        let center = UNUserNotificationCenter.current()
+//                        center.getPendingNotificationRequests(completionHandler: { requests in
+//                            for request in requests {
+//                                print(request.content.subtitle)
+//                            }
+//                        })
+//                    }
                 }
                 .navigationBarItems(trailing: NavigationLink("Applications",destination: AllApplicationsView()))
                 .navigationBarBackButtonHidden(true)
     }
+        
+    }
+        
 }
 
 struct ContentView_Previews: PreviewProvider {

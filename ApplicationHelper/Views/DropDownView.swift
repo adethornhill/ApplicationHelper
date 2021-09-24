@@ -46,7 +46,7 @@ struct DropDownView: View {
             .accentColor(.black)
             .padding()
             .frame(height: showItems ? 200 : 25)
-            .background(Color(#colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1)))
+            .background(Color(#colorLiteral(red: 0.779163897, green: 0.7792958021, blue: 0.7791464925, alpha: 1)))
             .cornerRadius(10)
             
         }

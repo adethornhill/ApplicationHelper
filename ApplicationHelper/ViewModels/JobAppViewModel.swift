@@ -53,6 +53,8 @@ class JobAppViewModel : ObservableObject {
     }
     
     func deleteApplication(jobApp : JobApplication){
+        //Remove scheduled notifications for this app
+        NotificationManager.getInstance().removeAppNoti(jobApp: jobApp)
         if applications.contains(jobApp){
             container.viewContext.delete(jobApp)
             saveData()
@@ -205,6 +207,8 @@ class JobAppViewModel : ObservableObject {
 
         
     }
+    
+    
     
     func createAppForTests(companyName:String, jobTitle:String , dateApplied:Date)->JobApplication{
         let newApp = JobApplication(context: container.viewContext)

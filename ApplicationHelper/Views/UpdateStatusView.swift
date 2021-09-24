@@ -46,55 +46,80 @@ struct UpdateOptionsView: View {
         VStack(spacing: 20){
             SingleApplicationView(jobApplication: jobApp)
             
-            Picker(selection: $selectedUpdate,
-                   label:
-                    HStack {
-                        Text("Update to: \(selectedUpdate)")
-                   }
-                    .padding()
-                    .padding(.horizontal)
-                    .foregroundColor(.white)
-                    .background(Color.blue)
-                    .cornerRadius(10)
-                    .shadow(color: .blue.opacity(0.6), radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/, x: /*@START_MENU_TOKEN@*/0.0/*@END_MENU_TOKEN@*/, y: 0)
-            )
-            {
-                ForEach(possibleStatus.indices) { index in
-                    Text(possibleStatus[index]).tag(possibleStatus[index])
-                    }
+            //picker to choose what status to update application to
+            //PICKER LABEL NOT SHOWING ANYMORE WHYYYY so put in menu
+            Menu{
+                Picker(selection: $selectedUpdate,
+                       label:
+                        HStack {
+                            Text("Update to: \(selectedUpdate)")
+                       }
+                        .labelsHidden()
+                )
+                {
+                    ForEach(possibleStatus.indices) { index in
+                        Text(possibleStatus[index]).tag(possibleStatus[index])
+                        }
+                }
+                .pickerStyle(.menu)
+                }
+            label:{
+                HStack {
+                    Text("Update to: \(selectedUpdate)")
+               }
+                .padding()
+                .padding(.horizontal)
+                .foregroundColor(.white)
+                .background(Color.blue)
+                .cornerRadius(10)
+                .shadow(color: .blue.opacity(0.6), radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/, x: /*@START_MENU_TOKEN@*/0.0/*@END_MENU_TOKEN@*/, y: 0)
             }
-            .pickerStyle(MenuPickerStyle())
+            
             
             //if interview is picked give options of numbers
-            
+            Menu{
             Picker(selection: $interviewNum, label: Text("Interview Number: \(interviewNum) ")) {
                 ForEach(1..<6) { num in
                         Text("\(num)").tag("\(num)")
                     }
             }
-            .pickerStyle(MenuPickerStyle())
-            .disabled(selectedUpdate != "Interview")
-            .padding()
-            .padding(.horizontal)
-            .foregroundColor(.white)
-            .background(selectedUpdate != "Interview" ? Color.white : Color.blue)
-            .cornerRadius(10)
-            .shadow(color: selectedUpdate != "Interview" ? Color.white : .blue.opacity(0.6), radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/, x: /*@START_MENU_TOKEN@*/0.0/*@END_MENU_TOKEN@*/, y: 0)
+            .pickerStyle(.menu)
+            .labelsHidden()
+            }
+        label:{
+            Text("Interview Number: \(interviewNum) ")
+        }
+        .disabled(selectedUpdate != "Interview")
+        .padding()
+        .padding(.horizontal)
+        .foregroundColor(.white)
+        .background(selectedUpdate != "Interview" ? Color.white : Color.blue)
+        .cornerRadius(10)
+        .shadow(color: selectedUpdate != "Interview" ? Color.white : .blue.opacity(0.6), radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/, x: /*@START_MENU_TOKEN@*/0.0/*@END_MENU_TOKEN@*/, y: 0)
                 
                 //Date picker to set date of interview
+            if selectedUpdate == "Interview"{
                 DatePicker("Date of Interview:", selection: $interviewDate, in: Date()..., displayedComponents: .date)
-                    .disabled(selectedUpdate != "Interview")
-                    .foregroundColor(selectedUpdate != "Interview" ? Color.white : Color.black)
-                    .accentColor(selectedUpdate != "Interview" ? Color.white : Color.blue)
                     .frame(maxWidth: 300)
+            }
             
             Spacer()
             NavigationLink(destination: HomeView() , isActive: $updateValid){
                 Button(action: {
                     if selectedUpdate != ""
                     {
-                        selectedUpdate=="Interview" ?
-                            viewModel.updateStatus(jobApp: jobApp, status: "\(selectedUpdate)  \(interviewNum)", importantDate: interviewDate ) : viewModel.updateStatus(jobApp: jobApp, status: selectedUpdate)
+                        if selectedUpdate=="Interview" {
+                            viewModel.updateStatus(jobApp: jobApp, status: "\(selectedUpdate) \(interviewNum)", importantDate: interviewDate )
+                            
+                            //request authorization to send push notifications
+                            NotificationManager.getInstance().requestAuthorization()
+                            
+                            //set notification to remind user about interview
+                            NotificationManager.getInstance().scheduleNotification(interviewDate: interviewDate, jobApp: jobApp)
+                        }
+                        else{
+                            viewModel.updateStatus(jobApp: jobApp, status: selectedUpdate)
+                        }
                         updateValid = true
                     }
                 }, label: {
@@ -133,9 +158,9 @@ struct updateStatusView_Previews: PreviewProvider {
     
     static var viewModel : JobAppViewModel = JobAppViewModel()
     
-    static var jobApp = viewModel.createAppForTests(companyName: "ManuLife", jobTitle:"Assistant", dateApplied: Date())
+    static var jobApp = viewModel.createAppForTests(companyName: "Company1", jobTitle:"Assistant", dateApplied: Date())
     
-    static var jobApp2 = viewModel.createAppForTests(companyName: "ManuLife", jobTitle:"Intern", dateApplied: Date())
+    static var jobApp2 = viewModel.createAppForTests(companyName: "Company1", jobTitle:"Intern", dateApplied: Date())
     
     static var previews: some View {
         NavigationView{

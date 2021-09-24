@@ -21,7 +21,7 @@ struct HomeScreenButtonView: View {
                 .border(borderColor, width: 3)
                 .foregroundColor(.black)
                 
-        Spacer()
+        //Spacer()
         }
 
     }

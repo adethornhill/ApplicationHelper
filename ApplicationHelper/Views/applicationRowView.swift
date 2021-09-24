@@ -46,7 +46,7 @@ struct applicationRowView_Previews: PreviewProvider {
     
     static var viewModel : JobAppViewModel = JobAppViewModel()
     
-    static var jobApp = viewModel.createAppForTests(companyName: "ManuLife", jobTitle:"bossman", dateApplied: Date())
+    static var jobApp = viewModel.createAppForTests(companyName: "Company1", jobTitle:"bossman", dateApplied: Date())
     
     static var previews: some View {
         ApplicationRowView(jobApplication: jobApp)

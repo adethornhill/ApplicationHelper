@@ -35,7 +35,7 @@ struct UpdateApplicationView: View {
                                        height: 25,
                                        alignment: .center)
                                 .padding()
-                                .background(!doesAppExist() ? Color(#colorLiteral(red: 0.6805589199, green: 0.6765155196, blue: 0.683668375, alpha: 1)): Color.blue)
+                                .background(!doesAppExist() ? Color(#colorLiteral(red: 0.6805589199, green: 0.6765155196, blue: 0.683668375, alpha: 1)): Color.accentColor)
                                 .foregroundColor(.white)
                                 .cornerRadius(10)
                 }).disabled(!doesAppExist())

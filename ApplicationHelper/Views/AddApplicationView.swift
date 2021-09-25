@@ -38,7 +38,7 @@ struct AddApplicationView: View {
                                    height: 25,
                                    alignment: .center)
                             .padding()
-                            .background(Color.blue)
+                            .background(Color.accentColor)
                             .foregroundColor(.white)
                             .cornerRadius(10)
                        })

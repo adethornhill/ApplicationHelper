@@ -21,28 +21,28 @@ struct AllApplicationsView: View {
             HStack(spacing: 10){
                 Text("Company")
                     .bold()
-                    .frame(width:77)
+                    .frame(minWidth:77)
                     
                 Divider()
                     .frame(height:20)
                 
                 Text("Job Title")
                     .bold()
-                    .frame(width:77)
+                    .frame(minWidth:77)
                 
                 Divider()
                     .frame(height:20)
                 
                 Text("Status")
                     .bold()
-                    .frame(width:77)
+                    .frame(minWidth:77)
                 
                 Divider()
                     .frame(height:20)
                 
                 Text("Date Applied")
                     .bold()
-                    .frame(width:77)
+                    .frame(minWidth:77)
             }
             Divider()
             
@@ -70,7 +70,7 @@ struct AllApplicationsView: View {
 
             }
         }
-        .accentColor(.black)
+        .accentColor(.primary)
                 
 
     }

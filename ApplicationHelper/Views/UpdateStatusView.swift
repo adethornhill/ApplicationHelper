@@ -70,9 +70,9 @@ struct UpdateOptionsView: View {
                 .padding()
                 .padding(.horizontal)
                 .foregroundColor(.white)
-                .background(Color.blue)
+                .background(Color.accentColor)
                 .cornerRadius(10)
-                .shadow(color: .blue.opacity(0.6), radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/, x: /*@START_MENU_TOKEN@*/0.0/*@END_MENU_TOKEN@*/, y: 0)
+                .shadow(color: .accentColor.opacity(0.6), radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/, x: /*@START_MENU_TOKEN@*/0.0/*@END_MENU_TOKEN@*/, y: 0)
             }
             
             
@@ -92,10 +92,10 @@ struct UpdateOptionsView: View {
         .disabled(selectedUpdate != "Interview")
         .padding()
         .padding(.horizontal)
-        .foregroundColor(.white)
-        .background(selectedUpdate != "Interview" ? Color.white : Color.blue)
+        .foregroundColor(selectedUpdate != "Interview" ? Color("HideColor"): Color.white)
+        .background(selectedUpdate != "Interview" ? Color("HideColor"): Color.accentColor)
         .cornerRadius(10)
-        .shadow(color: selectedUpdate != "Interview" ? Color.white : .blue.opacity(0.6), radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/, x: /*@START_MENU_TOKEN@*/0.0/*@END_MENU_TOKEN@*/, y: 0)
+        .shadow(color: selectedUpdate != "Interview" ? Color("HideColor") : .accentColor.opacity(0.6), radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/, x: /*@START_MENU_TOKEN@*/0.0/*@END_MENU_TOKEN@*/, y: 0)
                 
                 //Date picker to set date of interview
             if selectedUpdate == "Interview"{
@@ -129,7 +129,7 @@ struct UpdateOptionsView: View {
                                height: 25,
                                alignment: .center)
                         .padding()
-                        .background(!isUpdateValid() ? Color(#colorLiteral(red: 0.6805589199, green: 0.6765155196, blue: 0.683668375, alpha: 1)): Color.blue)
+                        .background(!isUpdateValid() ? Color(#colorLiteral(red: 0.6805589199, green: 0.6765155196, blue: 0.683668375, alpha: 1)): Color.accentColor)
                         .foregroundColor(.white)
                         .cornerRadius(10)
                 })

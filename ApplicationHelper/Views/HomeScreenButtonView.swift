@@ -20,6 +20,7 @@ struct HomeScreenButtonView: View {
                 .frame(maxWidth: 185)
                 .border(borderColor, width: 3)
                 .foregroundColor(.black)
+                .shadow(color: borderColor.opacity(0.4), radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/, x: /*@START_MENU_TOKEN@*/0.0/*@END_MENU_TOKEN@*/, y: 0)
                 
         //Spacer()
         }

@@ -60,10 +60,15 @@ struct SingleApplicationView: View {
             Spacer()
                 .frame(height: 15)
             
-            HStack{
-            Text("Upcoming Date:").bold()
-            Text(viewModel.getImportantDate(jobApplication: jobApplication))
+                if let status = jobApplication.status{
+                    if status.contains("Interview"){
+                        HStack{
+                        Text("Interview Date:").bold()
+                        Text(viewModel.getInterviewDate(jobApplication: jobApplication))
+                                }
                     }
+                }
+            
             }
             
             Spacer()

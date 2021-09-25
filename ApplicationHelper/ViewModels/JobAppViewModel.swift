@@ -165,7 +165,7 @@ class JobAppViewModel : ObservableObject {
         return formatter1.string(from: date)
     }
     
-    func getImportantDate(jobApplication: JobApplication)->String{
+    func getInterviewDate(jobApplication: JobApplication)->String{
         if let dateToReturn = jobApplication.importantDate {
             return getDateString(date: dateToReturn)
         }

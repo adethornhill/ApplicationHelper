@@ -10,7 +10,7 @@ import SwiftUI
 struct AllApplicationsView: View {
     
     @EnvironmentObject var jobAppViewModel : JobAppViewModel
-    
+    @Environment(\.presentationMode) var presentationMode
     var body: some View {
         VStack{
             HStack(spacing: 5){
@@ -59,6 +59,18 @@ struct AllApplicationsView: View {
             .listStyle(PlainListStyle())
         }
         .navigationBarTitle("Applications")
+        . navigationBarBackButtonHidden(true)
+        .toolbar{
+            ToolbarItemGroup(placement: .navigationBarLeading) {
+                Button {
+                    presentationMode.wrappedValue.dismiss()
+                } label: {
+                    Label("Home page", systemImage: "house.fill")
+                }
+
+            }
+        }
+        .accentColor(.black)
                 
 
     }

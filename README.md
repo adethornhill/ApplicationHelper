@@ -2,7 +2,7 @@
 
 ## Description
 
-ApplicationHelper is a Swift Project to help in organizing and tracking job applications.
+ApplicationHelper is a Swift Project to help organize and tracking job applications.
 
 ## Usage
 
@@ -17,7 +17,6 @@ Clicking on this icon takes you to the appplications page which lists all of the
 
 On the applications page, the filter and sort dropdown list do not currently work together.  
 
-In other words, if you choose a filter from the filter list and a sort descriptor from the sort list, the applications will be sorted or filtered  
-based on which option was chosen most recently and not will not be both filtered and sorted on both options chosen.
+If you choose a filter from the filter list and a sort descriptor from the sort list, the applications will be sorted or filtered based on which option was chosen most recently and will not be both filtered and sorted on both options chosen.
 
 At this moment, this project was only tested on the iPhone 12 simulator and therefore the visuals may not render properly on lower screen widths.
